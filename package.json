@@ -1,0 +1,8 @@
+{
+  "name": "inkling_takehome",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:alexsmaldone/TypeScript-API.git",
+  "author": "alexsmaldone <alexsmaldone@gmail.com>",
+  "license": "MIT"
+}
