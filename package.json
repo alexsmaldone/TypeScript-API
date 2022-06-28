@@ -1,8 +1,20 @@
 {
   "name": "inkling_takehome",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
-  "repository": "git@github.com:alexsmaldone/TypeScript-API.git",
-  "author": "alexsmaldone <alexsmaldone@gmail.com>",
-  "license": "MIT"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexsmaldone/TypeScript-API.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alexsmaldone/TypeScript-API/issues"
+  },
+  "homepage": "https://github.com/alexsmaldone/TypeScript-API#readme"
 }
