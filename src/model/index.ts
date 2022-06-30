@@ -19,9 +19,9 @@ interface EnrollmentAttributes {
 }
 
 
-class Student extends Model<StudentAttributes> {}
-class Course extends Model<CourseAttributes> {}
-class Enrollment extends Model<EnrollmentAttributes> {}
+export class Student extends Model<StudentAttributes> {}
+export class Course extends Model<CourseAttributes> {}
+export class Enrollment extends Model<EnrollmentAttributes> {}
 
 // --------------------------------------------------------------------------------
 // MODELS
