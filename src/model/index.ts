@@ -89,18 +89,10 @@ Enrollment.init({
 // ASSOCIATIONS
 // --------------------------------------------------------------------------------
 
-Enrollment.belongsTo(Student, {
-  foreignKey: "student_id",
-  onDelete: "CASCADE",
-});
-Enrollment.belongsTo(Course, {
-  foreignKey: "course_id",
-  onDelete: "CASCADE",
-})
 
-Student.hasMany(Enrollment, {
-  foreignKey: "student_id",
+Student.belongsToMany(Course, {
+  through: Enrollment,
 })
-Course.hasMany(Enrollment, {
-  foreignKey: "course_id",
+Course.belongsToMany(Student, {
+  through: Enrollment,
 })
