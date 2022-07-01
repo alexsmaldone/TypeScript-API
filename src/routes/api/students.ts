@@ -20,6 +20,7 @@ router.get("/", async (req: Request,res: Response) => {
 
 // POST route that creates a new student in the database
 router.post("/", async (req: Request,res: Response) => {
+  console.log(req.body);
   try {
     const student = await Student.create({ ...req.body});
     return res.send({student, msg: "Student created successfully"});
