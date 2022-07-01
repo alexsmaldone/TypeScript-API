@@ -5,7 +5,6 @@ interface StudentAttributes {
   id: number,
   first_name: string,
   last_name: string,
-  email: string
 }
 
 interface CourseAttributes {
@@ -30,6 +29,7 @@ export class Enrollment extends Model<EnrollmentAttributes> {}
 Student.init({
   id: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
     allowNull: false,
   },
@@ -38,10 +38,6 @@ Student.init({
     allowNull: false,
   },
   last_name: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  email: {
     type: DataTypes.STRING,
     allowNull: false,
   },
@@ -55,6 +51,7 @@ Student.init({
 Course.init({
   id: {
     type: DataTypes.INTEGER,
+    autoIncrement: true,
     primaryKey: true,
     allowNull: false,
   },
