@@ -20,10 +20,10 @@ router.get("/", async (req: Request,res: Response) => {
 
 // GET route that queries the database and returns a single student
 router.get("/:id", async (req: Request,res: Response) => {
-  try {
-    const student = await Student.findByPk(req.params.id);
-    return res.send(student)
-  } catch (e) {
+
+  const student = await Student.findByPk(req.params.id);
+  if (student) return res.send(student)
+  else {
     return res.json({msg: "Error finding student", status: 500, route: '/api/students/:id'});
   }
 }
@@ -40,6 +40,19 @@ router.post("/", async (req: Request,res: Response) => {
   }
 }
 );
+
+// DELETE route that deletes a student from the database
+router.delete("/:id", async (req: Request,res: Response) => {
+  try {
+    const student = await Student.destroy({ where: { id: req.params.id }});
+    console.log(student)
+    return res.send({msg: "Student deleted successfully"});
+  } catch (e) {
+    return res.json({msg: "Error deleting student", status: 500, route: '/api/students/:id'});
+  }
+}
+);
+
 
 
 module.exports = router
