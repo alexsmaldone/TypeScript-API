@@ -1,6 +1,8 @@
-import express, {Request, Response} from "express";
+import express, {NextFunction, Request, Response} from "express";
 import db from "../../config/database.config";
 import { Student } from "../../model";
+import StudentValidator from "../../validator";
+const {validationResult} = require('express-validator');
 
 const router = express.Router();
 
@@ -8,7 +10,8 @@ const router = express.Router();
 
 
 // GET route that queries the database and returns an array of all students
-router.get("/", async (req: Request,res: Response) => {
+router.get("/",
+async (req: Request,res: Response) => {
   try {
     const students = await Student.findAll();
     return res.send(students)
@@ -30,11 +33,20 @@ router.get("/:id", async (req: Request,res: Response) => {
 );
 
 // POST route that creates a new student in the database
-router.post("/", async (req: Request,res: Response) => {
+router.post("/",
+StudentValidator.checkCreateStudent(),
+(req: Request, res: Response, next: NextFunction) => {
+  const error = validationResult(req);
+  if (!error.isEmpty()) {
+    return res.json(error)
+  }
+  next();
+},
+async (req: Request,res: Response) => {
   console.log(req.body);
   try {
     const student = await Student.create({ ...req.body});
-    return res.send({student, msg: "Student created successfully"});
+    return res.status(201).send({student, msg: "Student created successfully"});
   } catch (e) {
     return res.json({msg: "Error creating student", status: 500, route: '/api/students'});
   }
