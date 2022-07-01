@@ -16,7 +16,7 @@ async (req: Request,res: Response) => {
     const students = await Student.findAll();
     return res.send(students)
   } catch (e) {
-    return res.json({msg: "Error finding students", status: 500, route: '/api/students'});
+    return res.status(500).json({msg: "Error finding students", route: '/api/students'});
   }
 }
 );
@@ -27,7 +27,7 @@ router.get("/:id", async (req: Request,res: Response) => {
   const student = await Student.findByPk(req.params.id);
   if (student) return res.send(student)
   else {
-    return res.json({msg: "Error finding student", status: 500, route: '/api/students/:id'});
+    return res.status(404).json({msg: "Error finding student", route: '/api/students/:id'});
   }
 }
 );
@@ -38,7 +38,7 @@ StudentValidator.checkCreateStudent(),
 (req: Request, res: Response, next: NextFunction) => {
   const error = validationResult(req);
   if (!error.isEmpty()) {
-    return res.json(error)
+    return res.status(400).json(error)
   }
   next();
 },
@@ -48,20 +48,20 @@ async (req: Request,res: Response) => {
     const student = await Student.create({ ...req.body});
     return res.status(201).send({student, msg: "Student created successfully"});
   } catch (e) {
-    return res.json({msg: "Error creating student", status: 500, route: '/api/students'});
+    return res.status(500).json({msg: "Error creating student", route: '/api/students'});
   }
 }
 );
 
 // DELETE route that deletes a student from the database
 router.delete("/:id", async (req: Request,res: Response) => {
-  try {
-    const student = await Student.destroy({ where: { id: req.params.id }});
-    console.log(student)
+
+  const student = await Student.findByPk(req.params.id);
+  if (student) {
+    await student.destroy();
     return res.send({msg: "Student deleted successfully"});
-  } catch (e) {
-    return res.json({msg: "Error deleting student", status: 500, route: '/api/students/:id'});
   }
+  return res.status(404).json({msg: "Error deleting student", route: '/api/students/:id'});
 }
 );
 
