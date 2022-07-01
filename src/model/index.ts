@@ -92,7 +92,9 @@ Enrollment.init({
 
 Student.belongsToMany(Course, {
   through: Enrollment,
+  foreignKey: "student_id",
 })
 Course.belongsToMany(Student, {
   through: Enrollment,
+  foreignKey: "course_id",
 })
