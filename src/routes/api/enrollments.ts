@@ -36,7 +36,8 @@ async (req: Request,res: Response) => {
     const course = await Course.findByPk(course_id);
 
     if (student && course) {
-      const enrollment = await Enrollment.create({student_id, course_id});
+      console.log("YES HITTING THISSSSSSSSSSSSS")
+      const enrollment = await Enrollment.create({"student_id": student_id, "course_id": course_id});
       return res.status(201).send({enrollment, msg: "Enrollment created successfully"});
     } else {
       return res.status(404).json({msg: "Error finding student or course", route: '/api/enrollments'});
