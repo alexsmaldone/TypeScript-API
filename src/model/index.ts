@@ -66,23 +66,23 @@ Course.init({
   }
 )
 
-Enrollment.init({
-  student_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {model: "Student"}
-  },
-  course_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {model: "Course"}
-  }
-},
-  {
-    sequelize: db,
-    tableName: "enrollments",
-  }
-)
+// Enrollment.init({
+//   student_id: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false,
+//     references: {model: Student, key: "id"}
+//   },
+//   course_id: {
+//     type: DataTypes.INTEGER,
+//     allowNull: false,
+//     references: {model: Course, key: "id"}
+//   }
+// },
+//   {
+//     sequelize: db,
+//     tableName: "enrollments",
+//   }
+// )
 
 
 // --------------------------------------------------------------------------------
@@ -91,10 +91,10 @@ Enrollment.init({
 
 
 Student.belongsToMany(Course, {
-  through: Enrollment,
-  foreignKey: "student_id",
+  through: 'Enrollment',
+  foreignKey: 'studentId',
 })
 Course.belongsToMany(Student, {
-  through: Enrollment,
-  foreignKey: "course_id",
+  through: 'Enrollment',
+  foreignKey: 'courseId',
 })
